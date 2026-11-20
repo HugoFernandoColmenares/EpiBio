@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Verificación pipeline EpiBio — 2026-11-20</title>
+  <style>
+    :root {
+      --bg: #090d14;
+      --panel: #111822;
+      --border: #263447;
+      --text: #e8eef7;
+      --muted: #8b9bb4;
+      --accent: #d96b27;
+      --ok: #14b8a6;
+      --gold: #e0a948;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(160deg, #090d14 0%, #111822 50%, #182230 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .meta { color: var(--muted); font-size: 0.9rem; }
+    .badge {
+      display: inline-block;
+      background: color-mix(in srgb, var(--ok) 20%, transparent);
+      color: var(--ok);
+      border: 1px solid var(--ok);
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 960px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1rem 1.1rem;
+    }
+    .panel h2 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    pre {
+      margin: 0;
+      font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      color: #c9d4e6;
+      max-height: 70vh;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th { color: var(--muted); font-weight: 500; }
+    td.ok { color: var(--ok); }
+    td.val { font-family: Consolas, monospace; }
+    .note {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="badge">VERIFICACIÓN OK — 8/8 tests + pipeline E2E</span>
+    <h1>EpiBio — corrida de verificación</h1>
+    <p class="meta">
+      Autor: HugoFernandoColmenares · Estudio MGYS00006080 ·
+      Comparación vs informe en docs/files · 2026-11-20
+    </p>
+  </header>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Salida de consola (uv run python -m epibio.reporte)</h2>
+      <pre id="out">Tabla: 623 linajes x 9 muestras
+Lecturas asignadas por muestra:
+MC2a            49024
+Sediment_2-4     5717
+MC3b            44085
+MC3a            73492
+MC2b            38431
+MC1b            55728
+MC1a            67361
+Sediment_7-9    10166
+Sediment_4-7     5702
+
+Géneros más abundantes (promedio de abundancia relativa):
+Desulfovibrio      0.1425
+Desulfocapsa       0.0578
+Desulfoconvexum    0.0336
+Psychrobacter      0.0303
+Colwellia          0.0191
+Thiohalophilus     0.0161
+Fusibacter         0.0150
+Alcanivorax        0.0067
+
+Sulfatorreductores por grupo (promedio):
+grupo           cadena-externa  cadena-interna  sedimento
+Desulfobacter           0.0004          0.0003     0.0000
+Desulfobulbus           0.0010          0.0003     0.0000
+Desulfovibrio           0.1634          0.2635     0.0006
+Desulfuromonas          0.0000          0.0006     0.0002
+
+Rarefacción a 5702 lecturas por muestra
+
+Promedio diversidad alfa por grupo:
+                shannon  riqueza
+cadena-externa     2.26    87.67
+cadena-interna     2.87   160.67
+sedimento          3.17   161.33
+
+PCoA: PC1 explica 64.7%, PC2 explica 13.3%
+
+PERMANOVA (999 permutaciones):
+test statistic (pseudo-F)   7.499981
+p-value                     0.006
+
+Gráficas:
+docs\barras_generos.html
+docs\pcoa.html</pre>
+    </section>
+
+    <section class="panel">
+      <h2>Comparación con el informe (artículo DevChronicle)</h2>
+      <table>
+        <thead>
+          <tr><th>Métrica</th><th>Informe</th><th>Corrida</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Linajes × muestras</td>
+            <td class="val">623 × 9</td>
+            <td class="val">623 × 9</td>
+            <td class="ok">OK</td>
+          </tr>
+          <tr>
+            <td>Desulfovibrio (media)</td>
+            <td class="val">0.1425</td>
+            <td class="val">0.1425</td>
+            <td class="ok">OK</td>
+          </tr>
+          <tr>
+            <td>Desulfovibrio cadena-int.</td>
+            <td class="val">0.2635</td>
+            <td class="val">0.2635</td>
+            <td class="ok">OK</td>
+          </tr>
+          <tr>
+            <td>Desulfovibrio sedimento</td>
+            <td class="val">0.0006</td>
+            <td class="val">0.0006</td>
+            <td class="ok">OK</td>
+          </tr>
+          <tr>
+            <td>Rarefacción (lecturas)</td>
+            <td class="val">5702</td>
+            <td class="val">5702</td>
+            <td class="ok">OK</td>
+          </tr>
+          <tr>
+            <td>Shannon sedimento</td>
+            <td class="val">3.17</td>
+            <td class="val">3.17</td>
+            <td class="ok">OK</td>
+          </tr>
+          <tr>
+            <td>PCoA PC1 / PC2</td>
+            <td class="val">64.8% / 13.4%</td>
+            <td class="val">64.7% / 13.3%</td>
+            <td class="ok">≈ OK</td>
+          </tr>
+          <tr>
+            <td>PERMANOVA p-value</td>
+            <td class="val">0.009</td>
+            <td class="val">0.006</td>
+            <td class="ok">≈ OK*</td>
+          </tr>
+          <tr>
+            <td>pytest</td>
+            <td class="val">3 passed</td>
+            <td class="val">8 passed</td>
+            <td class="ok">OK</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">
+        *PCoA y PERMANOVA varían levemente por el orden de columnas al rarificar
+        (submuestreo estocástico con semilla fija por muestra). Las conclusiones
+        coinciden: sedimento más diverso, Desulfovibrio enriquecido en acero,
+        grupos diferenciados (p &lt; 0.01).
+      </p>
+    </section>
+  </div>
+</body>
+</html>

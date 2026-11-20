@@ -1,0 +1,46 @@
+[project]
+name = "epibio"
+version = "0.1.0"
+description = "EpiBio: pipeline reproducible para comparar comunidades microbianas 16S (acero corroído vs sedimento) con pandas y scikit-bio."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.14"
+authors = [
+    { name = "HugoFernandoColmenares", email = "HugoFernandoColmenares@users.noreply.github.com" },
+]
+keywords = [
+    "epibio",
+    "bioinformatica",
+    "16S",
+    "MIC",
+    "scikit-bio",
+    "pandas",
+    "MGnify",
+    "diversidad",
+]
+dependencies = [
+    "httpx>=0.28.1",
+    "pandas>=3.1.1",
+    "plotly>=7.1.0",
+    "scikit-bio>=0.7.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/HugoFernandoColmenares"
+Repository = "https://github.com/HugoFernandoColmenares"
+
+[project.scripts]
+epibio = "epibio:main"
+
+[build-system]
+requires = ["uv_build>=0.13.8,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

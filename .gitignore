@@ -1,0 +1,39 @@
+# Datos descargados (se regeneran con python -m epibio.descarga)
+data/raw/*
+!data/raw/.gitkeep
+
+# Entorno virtual y cachés de Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Herramientas y cobertura
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.cache/
+
+# IDE / SO
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# uv / locks locales opcionales (uv.lock SÍ se versiona)
+uv.toml
+
+# Salidas locales temporales
+*.log
+.env
+.env.*
